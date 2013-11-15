@@ -3,7 +3,7 @@
 Contributors: extrememember
 Tags: cache, object cache, performance, APC, xCache, memcached, eAccelerator
 Requires at least: 3.0
-Tested up to: 3.6
+Tested up to: 3.7.1
 Stable tag: trunk
 License: MIT
 License URI: http://opensource.org/licenses/MIT
@@ -63,6 +63,9 @@ A2: If disabling `open_basedir` is not an option, set the `Cache location` under
 
 = EMOC 2.1 (Jul 08, 2013) =
 * Changed all paths from `em_object_cache` to `em-object-cache` due to WP requirements ("an underscore character is not valid in a path, therefore you can't have em_object_cache as the plugin's slug. Only alphanumeric characters and the dash are valid.").
+
+= EMOC 2.0.1 (Nov 15, 2013) =
+* Fixed several bugs in the UI
 
 = EMOC 2.0 (Jun 08, 2013) =
 * First public release of EM Object Cache

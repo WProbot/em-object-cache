@@ -28,8 +28,8 @@ class EMOCPageHandlers
 				}
 
 				if (2 == $engine[2]) {
-					if (include_once(WP_PLUGIN_DIR . '/em-object-cache/lib/ph/' . $engine[1] . '.php')) {
-						add_action("load-em-object-cache/pages/{$engine[1]}.php", array('PH_' . $engine[0], 'load_options'));
+					if (include_once(dirname(__FILE__) . '/ph/' . $engine[1] . '.php')) {
+						add_action("load-em_object_cache/pages/{$engine[1]}.php", array('PH_' . $engine[0], 'load_options'));
 						add_action("admin_post_save_emoc_options_{$id}",          array('PH_' . $engine[0], 'save_options'), 20);
 					}
 				}
@@ -54,7 +54,7 @@ class EMOCPageHandlers
 		if (!empty($_GET['error'])) {
 			$params['error'] = sprintf(
 				__("Unable to write to <code>%1\$s</code>. Please make sure that it is writable by the server.", 'emobjectcache'),
-				ABSPATH . 'wp-content/object-cache.php'
+				dirname(dirname(__FILE__)) . '/options.php'
 			);
 		}
 
@@ -143,7 +143,10 @@ class EMOCPageHandlers
 			$redir = array('error' => 1);
 		}
 
-		wp_redirect(add_query_arg($redir, $_POST['_wp_http_referer']));
+		$referer = $_POST['_wp_http_referer'];
+		remove_query_arg($referer, 'message');
+		remove_query_arg($referer, 'error');
+		wp_redirect(add_query_arg($redir, $referer));
 		die();
 	}
 
@@ -151,7 +154,11 @@ class EMOCPageHandlers
 	{
 		check_admin_referer('purge-objectcache');
 		wp_cache_flush();
-		wp_redirect(add_query_arg(array('message' => 2), $_POST['_wp_http_referer']));
+
+		$referer = $_POST['_wp_http_referer'];
+		remove_query_arg($referer, 'message');
+		remove_query_arg($referer, 'error');
+		wp_redirect(add_query_arg(array('message' => 2), $referer));
 	}
 
 	public function prepare_post_data()
@@ -174,7 +181,10 @@ class EMOCPageHandlers
 			$redir = array('error' => 1);
 		}
 
-		wp_redirect(add_query_arg($redir, $_POST['_wp_http_referer']));
+		$referer = $_POST['_wp_http_referer'];
+		remove_query_arg($referer, 'message');
+		remove_query_arg($referer, 'error');
+		wp_redirect(add_query_arg($redir, $referer));
 		die();
 	}
 }
