@@ -10,7 +10,7 @@ Author URI: http://www.extrememember.com/
 
 defined('ABSPATH') or die();
 
-require_once(WP_PLUGIN_DIR . '/em_object_cache/lib/CacheFactory.php');
+require_once(dirname(__FILE__) . '/lib/CacheFactory.php');
 
 class EMObjectCache
 {
@@ -50,7 +50,7 @@ class EMObjectCache
 
 	public function admin_init()
 	{
-		require_once(WP_PLUGIN_DIR . "/em_object_cache/lib/PageHandlers.php");
+		require_once(dirname(__FILE__) . "/lib/PageHandlers.php");
 	}
 
 	public function loadOptions()
@@ -101,22 +101,23 @@ class EMObjectCache
 	public function writeOptions($options)
 	{
 		$data = '<?php $GLOBALS["__emoc_options"] = ' . var_export($options, true) . '; ?>';
-		return file_put_contents(WP_PLUGIN_DIR . '/em_object_cache/options.php', $data, LOCK_EX);
+		return file_put_contents(dirname(__FILE__) . '/options.php', $data, LOCK_EX);
 	}
 
 	public function activate()
 	{
 		$this->loadOptions();
-		if (!copy(WP_PLUGIN_DIR . '/em_object_cache/object-cache.php', WP_CONTENT_DIR . '/object-cache.php')) {
-			wp_die(__(sprintf("There was an error copying <code>%s</code> to <code>%s</code>", WP_PLUGIN_DIR . '/em_object_cache/object-cache.php', WP_CONTENT_DIR . '/object-cache.php')));
+		$base = dirname(__FILE__);
+		if (!copy($base . '/object-cache.php', WP_CONTENT_DIR . '/object-cache.php')) {
+			wp_die(__(sprintf("There was an error copying <code>%s</code> to <code>%s</code>", $base . '/object-cache.php', WP_CONTENT_DIR . '/object-cache.php')));
 		}
 	}
 
 	public function deactivate()
 	{
-		if (file_exists(ABSPATH . 'wp-content/object-cache.php')) {
-			if (!unlink(ABSPATH . 'wp-content/object-cache.php')) {
-				die("WARNING: failed to delete <code>" . ABSPATH . "wp-content/object-cache.php</code><br/>Please delete this file ASAP.");
+		if (file_exists(WP_CONTENT_DIR . '/object-cache.php')) {
+			if (!unlink(WP_CONTENT_DIR . '/object-cache.php')) {
+				die("WARNING: failed to delete <code>" . WP_CONTENT_DIR . "/object-cache.php</code><br/>Please delete this file ASAP.");
 			}
 		}
 	}
