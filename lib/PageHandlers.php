@@ -29,7 +29,7 @@ class EMOCPageHandlers
 
 				if (2 == $engine[2]) {
 					if (include_once(dirname(__FILE__) . '/ph/' . $engine[1] . '.php')) {
-						add_action("load-em_object_cache/pages/{$engine[1]}.php", array('PH_' . $engine[0], 'load_options'));
+						add_action("load-em-object-cache/pages/{$engine[1]}.php", array('PH_' . $engine[0], 'load_options'));
 						add_action("admin_post_save_emoc_options_{$id}",          array('PH_' . $engine[0], 'save_options'), 20);
 					}
 				}
@@ -190,11 +190,3 @@ class EMOCPageHandlers
 }
 
 EMOCPageHandlers::instance();
-
-if (!function_exists('esc_attr_e')) {
-	function esc_attr_e($text, $domain = 'default') { echo esc_attr(translate($text, $domain)); }
-}
-
-if (!function_exists('esc_attr')) {
-	function esc_attr($text) { return attribute_escape($text); }
-}

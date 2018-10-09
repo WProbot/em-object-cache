@@ -19,8 +19,8 @@ final class EMOCApcCache extends EMOCBaseCache
 	{
 		$this->prefix = (empty($data['prefix'])) ? md5($_SERVER['HTTP_HOST']) : $data['prefix'];
 
-		if (function_exists('apc_sma_info')) {
-			$info = apc_sma_info();
+		if (function_exists('apcu_sma_info')) {
+			$info = apcu_sma_info();
 			if ($info['avail_mem'] < 1048576) {
 				$persist = false;
 			}
@@ -31,19 +31,19 @@ final class EMOCApcCache extends EMOCBaseCache
 
 	protected function do_delete($key, $group)
 	{
-		return apc_delete($this->getKey($group, $key));
+		return apcu_delete($this->getKey($group, $key));
 	}
 
 	protected function do_flush()
 	{
 		$prefix = $this->prefix;
 		$len    = strlen($this->prefix);
-		$data   = @apc_cache_info('user');
+		$data   = @apcu_cache_info('user');
 
 		if ($data && !empty($data['cache_list'])) {
 			foreach ($data['cache_list'] as &$x) {
 				if (!strncmp($x['info'], $prefix, $len)) {
-					apc_delete($x['info']);
+					apcu_delete($x['info']);
 				}
 			}
 
@@ -53,13 +53,13 @@ final class EMOCApcCache extends EMOCBaseCache
 
 	protected function do_get($group, $key, &$found, $ttl)
 	{
-		$result = apc_fetch($this->getKey($group, $key), $found);
+		$result = apcu_fetch($this->getKey($group, $key), $found);
 		return $result;
 	}
 
 	protected function do_set($key, $data, $group, $ttl)
 	{
-		return apc_store($this->getKey($group, $key), $data, $ttl);
+		return apcu_store($this->getKey($group, $key), $data, $ttl);
 	}
 
 	protected function getKey($group, $key)

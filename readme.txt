@@ -1,15 +1,15 @@
 === EM Object Cache ===
 
 Contributors: extrememember
-Tags: cache, object cache, performance, APC, xCache, memcached, eAccelerator
-Requires at least: 3.0
-Tested up to: 4.0
+Tags: cache, object cache, performance, APCu, memcached
+Requires at least: 4.0
+Tested up to: 4.9.8
 Stable tag: trunk
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 Donate link: TBD
 
-Persistent caching using APC, xCache, eAccelerator, Zend Disk Cache, Zend Shared Memory Cache or files.
+Persistent caching using APCu, Zend Disk Cache, Zend Shared Memory Cache, Memcached or files.
 
 == Description ==
 
@@ -31,11 +31,11 @@ This plugin is the successor of [WP File Cache](http://blog.sjinks.pro/wordpress
 
 == Installation ==
 
-1. Upload `em_object_cache` folder to the `wp-content/plugins/` directory.
+1. Upload `em-object-cache` folder to the `wp-content/plugins/` directory.
 1. Please make sure that `wp-content` directory is writable by the web server: the plugin will need to copy `object-cache.php` file into it.
-1. Please make sure that `wp-content/plugins/em_object_cache` directory is writable by the web server: the plugin will store its configuration (`options.php`) there.
+1. Please make sure that `wp-content/plugins/em-object-cache` directory is writable by the web server: the plugin will store its configuration (`options.php`) there.
 1. Activate the plugin in the 'Plugins' menu in WordPress.
-1. Make sure that `wp-content/object-cache.php` file exists. If it is not, please copy it from `wp-content/plugins/em_object_cache/object-cache.php`
+1. Make sure that `wp-content/object-cache.php` file exists. If it is not, please copy it from `wp-content/plugins/em-object-cache/object-cache.php`
 1. `wp-content/object-cache.php` file wust me writable by the server since plugin stores its options in that file.
 1. That's all :-)
 
@@ -61,11 +61,17 @@ A2: If disabling `open_basedir` is not an option, set the `Cache location` under
 
 == Changelog ==
 
+= EMOC 3.0 (Oct 9, 2018)
+* Bug fixes
+* Removed xCache, eAccelerator, and Memcache backends as they are not compatible with PHP 7
+* APC backend now relies upon APCu extension
+* Plugin is `em-object-cache` again :-)
+
 = EMOC 2.1.1 (Nov 15, 2013) =
 * Fixed several bugs in the UI
 
 = EMOC 2.1 (Jul 08, 2013) =
-* Changed all paths from `em_object_cache` to `em_object_cache` due to WP requirements ("an underscore character is not valid in a path, therefore you can't have em_object_cache as the plugin's slug. Only alphanumeric characters and the dash are valid.").
+*  Changed all paths from `em-object-cache` to `em_object_cache` due to WP requirements ("an underscore character is not valid in a path, therefore you can't have em_object_cache as the plugin's slug. Only alphanumeric characters and the dash are valid.").
 
 = EMOC 2.0 (Jun 08, 2013) =
 * First public release of EM Object Cache
@@ -167,14 +173,6 @@ A2: If disabling `open_basedir` is not an option, set the `Cache location` under
 
 = WPFC 0.2.1 (Jun 12, 2008) =
 * First public release
-
-== Upgrade Notice ==
-
-If upgrading from WP File Cache or SJ Object Cache, please deactivate and remove them first, the activate EM Object Cache.
-
-If upgrading from EM Object Cache 2.0, please note that the plugin path has changed (`em-object-cache` => `em_object_cache`).
-Thios is because "an underscore character is not valid in a path, therefore you can't have em_object_cache as the plugin's slug. Only alphanumeric characters and the dash are valid."
-Therefore please uninstall EMOC 2.0 completely and then install 2.1 from the wordpress.org.
 
 == Screenshots ==
 

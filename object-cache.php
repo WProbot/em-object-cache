@@ -18,13 +18,10 @@ else {
 	unset($result);
 
 	EMOCCacheFactory::registerEngine('basecache',      'EMOCBaseCache',         'BaseCache',         'array_merge',           0, 'BaseCache', true);
-	EMOCCacheFactory::registerEngine('apc',            'EMOCApcCache',          'ApcCache',          'apc_store',             1, 'APC');
-	EMOCCacheFactory::registerEngine('eaccelerator',   'EMOCEAcceleratorCache', 'eAcceleratorCache', 'eaccelerator_put',      1, 'eAccelerator');
+	EMOCCacheFactory::registerEngine('apcu',           'EMOCApcCache',          'ApcCache',          'apcu_store',            1, 'APC');
 	EMOCCacheFactory::registerEngine('filecache',      'EMOCFileCache',         'FileCache',         'file_put_contents',     1, 'FileCache');
-	EMOCCacheFactory::registerEngine('xcache',         'EMOCxCache',            'xCache',            'xcache_set',            1, 'xCache');
 	EMOCCacheFactory::registerEngine('zend_disk',      'EMOCZendDiskCache',     'ZendDiskCache',     'zend_disk_cache_store', 1, 'ZendDisk');
 	EMOCCacheFactory::registerEngine('zend_shm',       'EMOCZendShmCache',      'ZendShmCache',      'zend_shm_cache_store',  1, 'ZendShm');
-	EMOCCacheFactory::registerEngine('memcache',       'EMOCMemcache',          'Memcache',          'memcache_connect',      2, 'Memcache');
 	EMOCCacheFactory::registerEngine('memcached',      'EMOCMemcached',         'Memcached',         'memcached',             2, 'Memcached');
 
 	$GLOBALS['__emoc_options'] = array();

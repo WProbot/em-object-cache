@@ -1,4 +1,5 @@
 <?php defined('ABSPATH') or die(); ?>
+<?php global $params; ?>
 <div class="wrap">
 	<h2><?php _e("Memcached Caching Engine Options", 'emobjectcache'); ?></h2>
 
